@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="XamarinInteligente.Views.LoginPage"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             Title="Inicio de sesión"
+             ios:Page.UseSafeArea="true">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Padding="20,100,20,0">
+            <Label Text="Inicio de Sesión" FontSize="20" TextColor="Gray" HorizontalOptions="CenterAndExpand"/>
+            <Entry Placeholder="Correo electrónico" Keyboard="Email"/>
+            <Entry Placeholder="Contraseña" IsPassword="True"/>
+            <Button Text="Iniciar Sesión" TextColor="White" 
+                    BackgroundColor="#FFA733"
+                    BorderRadius="15"
+                    BorderColor="White"
+                    BorderWidth="2"
+                    WidthRequest="200"
+                    HorizontalOptions="Center"/>
+            <Button Text="Registrate" TextColor="Gray" BackgroundColor="Transparent"/>
+            <ActivityIndicator HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

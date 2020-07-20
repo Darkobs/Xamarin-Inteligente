@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="XamarinInteligente.Views.SignUpPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Guardar" Priority="1" Order="Primary" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <TableView Intent="Form" HasUnevenRows="True">
+            <TableSection Title="Información del Usuario">
+                <ViewCell>
+                    <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
+                        <Entry Placeholder="Nombre" HorizontalOptions="FillAndExpand"/>
+                        <Image HeightRequest="30" WidthRequest="30"/>
+                    </StackLayout>              
+                </ViewCell>
+                <ViewCell>
+                    <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
+                        <Entry Placeholder="Dirección" HorizontalOptions="FillAndExpand"/>
+                        <Image HeightRequest="30" WidthRequest="30"/>
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell>
+                    <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
+                        <Entry Placeholder="Teléfono" Keyboard="Numeric" HorizontalOptions="FillAndExpand"/>
+                        <Image HeightRequest="30" WidthRequest="30"/>
+                    </StackLayout>
+                </ViewCell>
+            </TableSection>
+            <TableSection Title="Información de la Cuenta">
+                <ViewCell>
+                    <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
+                        <Entry Placeholder="Correo Electrónico" Keyboard="Email"  HorizontalOptions="FillAndExpand"/>
+                        <Image HeightRequest="30" WidthRequest="30"/>
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell>
+                    <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
+                        <Entry Placeholder="Contraseña" IsPassword="True" HorizontalOptions="FillAndExpand"/>
+                        <Image HeightRequest="30" WidthRequest="30"/>
+                    </StackLayout>
+                </ViewCell>
+            </TableSection>
+        </TableView>
+    </ContentPage.Content>
+</ContentPage>

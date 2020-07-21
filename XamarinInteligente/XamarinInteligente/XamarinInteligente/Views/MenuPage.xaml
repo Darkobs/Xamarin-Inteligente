@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="XamarinInteligente.Views.MenuPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button x:Name="btnNextClient" Text="Siguiente cliente" BackgroundColor="White" Clicked="btnNextClient_Clicked" />
+            <Button x:Name="btnSearchClient" Text="Buscar cliente" BackgroundColor="White" Clicked="btnSearchClient_Clicked"/>
+            <Button x:Name="btnNewOrder" Text="Nueva Orden" BackgroundColor="White" Clicked="btnNewOrder_Clicked"/>
+            <Button x:Name="btnLogout" Text="Salir" BackgroundColor="White" Clicked="btnLogout_Clicked"/>
+            <Button x:Name="btnAbout" Text="Acerca de la app" BackgroundColor="White" Clicked="btnAbout_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

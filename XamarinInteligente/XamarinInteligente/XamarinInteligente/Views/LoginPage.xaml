@@ -7,6 +7,7 @@
              x:Class="XamarinInteligente.Views.LoginPage"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              Title="Inicio de sesión"
+             IconImageSource="user"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="20,100,20,0">
@@ -15,7 +16,7 @@
             <Entry Placeholder="Contraseña" IsPassword="True"/>
             <Button Text="Iniciar Sesión" TextColor="White" 
                     BackgroundColor="#FFA733"
-                    BorderRadius="15"
+                    CornerRadius="15"
                     BorderColor="White"
                     BorderWidth="2"
                     WidthRequest="200"

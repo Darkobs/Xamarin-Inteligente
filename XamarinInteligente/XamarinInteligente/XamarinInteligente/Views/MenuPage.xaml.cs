@@ -19,22 +19,28 @@ namespace XamarinInteligente.Views
 
         private void btnNextClient_Clicked(object sender, EventArgs e)
         {
-
+            (App.Current.MainPage as MasterDetailPage).Detail = new NavigationPage(new NextClientPage());
+            (App.Current.MainPage as MasterDetailPage).IsPresented = false;
         }
 
         private void btnSearchClient_Clicked(object sender, EventArgs e)
         {
-
+            (App.Current.MainPage as MasterDetailPage).Detail = new NavigationPage(new ClientSearchPage());
+            (App.Current.MainPage as MasterDetailPage).IsPresented = false;
         }
 
         private void btnNewOrder_Clicked(object sender, EventArgs e)
         {
-
+            (App.Current.MainPage as MasterDetailPage).Detail = new NavigationPage(new OrderPage());
+            (App.Current.MainPage as MasterDetailPage).IsPresented = false;
         }
 
         private void btnLogout_Clicked(object sender, EventArgs e)
         {
-
+            Xamarin.Forms.TabbedPage tabbedPage = new Xamarin.Forms.TabbedPage();
+            tabbedPage.Children.Add(new LoginPage());
+            tabbedPage.Children.Add(new SignUpPage());
+            App.Current.MainPage = tabbedPage;
         }
 
         private void btnAbout_Clicked(object sender, EventArgs e)

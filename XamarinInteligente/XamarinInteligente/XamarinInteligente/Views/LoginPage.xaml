@@ -20,8 +20,9 @@
                     BorderColor="White"
                     BorderWidth="2"
                     WidthRequest="200"
-                    HorizontalOptions="Center"/>
-            <Button Text="Registrate" TextColor="Gray" BackgroundColor="Transparent"/>
+                    HorizontalOptions="Center"
+                    Clicked="BtnLogin_Clicked"/>
+            <Button Text="Regístrate" TextColor="Gray" BackgroundColor="Transparent" Clicked="BtnSignUp_Clicked"/>
             <ActivityIndicator HorizontalOptions="Center"/>
         </StackLayout>
     </ContentPage.Content>

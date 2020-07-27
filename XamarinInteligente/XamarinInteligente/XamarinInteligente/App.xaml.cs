@@ -19,14 +19,13 @@ namespace XamarinInteligente
 
             // Muestra los tabs en la parte inferior
             //tabbedPage.On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
-            //MainPage = tabbedPage;
+            MainPage = tabbedPage;
+            //MainPage = new NavigationPage(new NextClientPage());
 
             //MainPage = new MainMasterDetailPage();
             
             //Asignamos la página de pestañas como inicial, la envolvemos en un NavigationPage para tener a la vista la barra de navegación
             //MainPage = new NavigationPage(tabbedPage);
-            MainPage = tabbedPage;
-
         }
 
         protected override void OnStart()

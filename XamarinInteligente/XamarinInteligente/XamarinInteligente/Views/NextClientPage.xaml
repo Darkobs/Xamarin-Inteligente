@@ -3,14 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:XamarinInteligente.ViewModels"
              mc:Ignorable="d"
+             Title="{Binding Title}"
              x:Class="XamarinInteligente.Views.NextClientPage">
+
+    <ContentPage.BindingContext>
+        <vm:NextClientViewModel/>
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="10,20,20,10">
-            <Label Text="Nombre" />
-            <Label Text="Teléfono" />
-            <Label Text="Dirección" />
-            <Label Text="Dirección" />
+        <StackLayout Orientation="Vertical" Padding="10,20,20,10" BindingContext="{Binding Client}" >
+            <Label Text="{Binding Name, Mode=TwoWay}" />
+            <Label Text="{Binding PhoneNumber, Mode=TwoWay}"  />
+            <Label Text="{Binding Address, Mode=TwoWay}"  />
+            <Label Text="{Binding Email, Mode=TwoWay}" />
             <BoxView BackgroundColor="Black" VerticalOptions="FillAndExpand" >
             </BoxView>
             <Button Text="Ruta" TextColor="White" 

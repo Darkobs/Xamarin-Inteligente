@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:vm="clr-namespace:XamarinInteligente.ViewModels"
+             xmlns:vm="clr-namespace:XamarinInteligente.ViewModels" xmlns:controls="clr-namespace:XamarinInteligente.Controls"
              mc:Ignorable="d"
              Title="{Binding Title}"
              IconImageSource="signup"
@@ -12,9 +12,9 @@
     <ContentPage.BindingContext>
         <vm:SignUpViewModel/>
     </ContentPage.BindingContext>
-    
+
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Guardar" Priority="1" Order="Primary" />
+        <controls:DynamicVisibilityToolbarItem Text="Guardar" Priority="1" Order="Primary" IsVisible="{Binding IsBusy}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 using XamarinInteligente.Model.BaseTypes;
 using XamarinInteligente.Model.Entities;
 
@@ -13,6 +14,14 @@ namespace XamarinInteligente.ViewModels
             Title = "Nuevo usuario";
             User = new User();
             User = Sampledata.SampleDataGenerator.GenerateUser();
+
+            //IsBusy = true;
+            Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+            {
+                IsBusy = !IsBusy;
+
+                return true;
+            } );
         }
 
         private User user;

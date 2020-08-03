@@ -21,7 +21,7 @@
     </ContentPage.BindingContext>
 
     <ContentPage.ToolbarItems>
-        <controls:DynamicVisibilityToolbarItem Text="Guardar" Priority="1" Order="Primary" IsVisible="{Binding IsValid}"/>
+        <controls:DynamicVisibilityToolbarItem Text="Guardar" Priority="1" Order="Primary" IsVisible="{Binding IsValid}" Command="{Binding CreateUserCommand}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
@@ -70,6 +70,11 @@
                         </Entry>
                         <Image HeightRequest="30" WidthRequest="30" Source="{Binding Source={x:Reference passwordValidator}, Path=IsValid, Converter={StaticResource cvtBoolToImage}}"/>
                     </StackLayout>
+                </ViewCell>
+            </TableSection>
+            <TableSection>
+                <ViewCell>
+                    <ActivityIndicator HorizontalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
                 </ViewCell>
             </TableSection>
         </TableView>

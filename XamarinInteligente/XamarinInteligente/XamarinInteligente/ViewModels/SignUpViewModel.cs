@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using XamarinInteligente.Model.BaseTypes;
 using XamarinInteligente.Model.Entities;
@@ -14,7 +16,10 @@ namespace XamarinInteligente.ViewModels
             Title = "Nuevo usuario";
             User = new User();
             IsBusy = false;
-            User = Sampledata.SampleDataGenerator.GenerateUser();
+            InitVM();
+
+
+            //User = Sampledata.SampleDataGenerator.GenerateUser();
 
             //IsBusy = true;
             //Device.StartTimer(TimeSpan.FromSeconds(10), () =>
@@ -85,9 +90,35 @@ namespace XamarinInteligente.ViewModels
         private void ValidateAll() 
             => IsValid = IsValidEmail && IsValidPassword && IsValidPhoneNumber;
 
-        void CreateUser()
+        private async Task CreateUser()
         {
-            IsBusy = true;
+            if(!IsBusy)
+            {
+                IsBusy = true;
+
+                if(IsValid && !string.IsNullOrWhiteSpace(User.Name) && !string.IsNullOrWhiteSpace(User.Address))
+                {
+                    await Task.Delay(5000);
+                    await Application.Current.MainPage.DisplayAlert("Nuevo usuario creado", "El usuario se creaó correctamente", "Continuar");
+                    CleanData();
+                    var tabbedPage = (Application.Current.MainPage as NavigationPage).CurrentPage as TabbedPage;
+                    tabbedPage.SelectedItem = tabbedPage.Children[0];
+                }
+
+                IsBusy = false;
+            }
+        }
+
+        public Command CreateUserCommand
+        {
+            get;
+            set;
+        }
+
+        void InitVM()
+        {
+            CreateUserCommand = new Command(async () => await CreateUser());
+            CleanData();
         }
     }
 }

@@ -3,53 +3,72 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:vm="clr-namespace:XamarinInteligente.ViewModels" xmlns:controls="clr-namespace:XamarinInteligente.Controls"
+             xmlns:vm="clr-namespace:XamarinInteligente.ViewModels" xmlns:controls="clr-namespace:XamarinInteligente.Controls" 
+             xmlns:behaviors="clr-namespace:XamarinInteligente.Views.Behaviors" xmlns:Converters="clr-namespace:XamarinInteligente.Views.Converter"
              mc:Ignorable="d"
              Title="{Binding Title}"
              IconImageSource="signup"
              x:Class="XamarinInteligente.Views.SignUpPage">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converters:BoolToImageConverter x:Key="cvtBoolToImage" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.BindingContext>
         <vm:SignUpViewModel/>
     </ContentPage.BindingContext>
 
     <ContentPage.ToolbarItems>
-        <controls:DynamicVisibilityToolbarItem Text="Guardar" Priority="1" Order="Primary" IsVisible="{Binding IsBusy}"/>
+        <controls:DynamicVisibilityToolbarItem Text="Guardar" Priority="1" Order="Primary" IsVisible="{Binding IsValid}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
-        <TableView Intent="Form" BindingContext="{Binding User}" HasUnevenRows="True">
+        <TableView Intent="Form" HasUnevenRows="True">
             <TableSection Title="Información del Usuario">
                 <ViewCell>
                     <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
-                        <Entry Placeholder="Nombre" Text="{Binding Name, Mode=TwoWay}"  HorizontalOptions="FillAndExpand"/>
+                        <Entry Placeholder="Nombre" Text="{Binding User.Name, Mode=TwoWay}"  HorizontalOptions="FillAndExpand"/>
                         <Image HeightRequest="30" WidthRequest="30"/>
                     </StackLayout>              
                 </ViewCell>
                 <ViewCell>
                     <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
-                        <Entry Placeholder="Dirección" Text="{Binding Address, Mode=TwoWay}" HorizontalOptions="FillAndExpand"/>
+                        <Entry Placeholder="Dirección" Text="{Binding User.Address, Mode=TwoWay}" HorizontalOptions="FillAndExpand"/>
                         <Image HeightRequest="30" WidthRequest="30"/>
                     </StackLayout>
                 </ViewCell>
                 <ViewCell>
                     <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
-                        <Entry Placeholder="Teléfono de Contacto" x:Name="entryB" Keyboard="Telephone" Text="{Binding PhoneNumber, Mode=TwoWay}" HorizontalOptions="FillAndExpand"/>
-                        <Image HeightRequest="30" WidthRequest="30"/>
+                        <Entry Placeholder="Teléfono de Contacto" x:Name="entryB" Keyboard="Telephone" Text="{Binding User.PhoneNumber, Mode=TwoWay}" HorizontalOptions="FillAndExpand">
+                            <Entry.Behaviors>
+                                <behaviors:EntryValidationBehavior IsValid="{Binding IsValidPhoneNumber}" ValidationType="PhoneNumber" x:Name="phoneNumberValidator"/>
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Image HeightRequest="30" WidthRequest="30" Source="{Binding Source={x:Reference phoneNumberValidator}, Path=IsValid, Converter={StaticResource cvtBoolToImage}}"/>
                     </StackLayout>
                 </ViewCell>
             </TableSection>
             <TableSection Title="Información de la Cuenta">
                 <ViewCell>
                     <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
-                        <Entry Placeholder="Correo Electrónico" Keyboard="Email" Text="{Binding Email, Mode=TwoWay}"  HorizontalOptions="FillAndExpand"/>
-                        <Image HeightRequest="30" WidthRequest="30"/>
+                        <Entry Placeholder="Correo Electrónico" Keyboard="Email" Text="{Binding User.Email, Mode=TwoWay}"  HorizontalOptions="FillAndExpand">
+                            <Entry.Behaviors>
+                                <behaviors:EntryValidationBehavior IsValid="{Binding IsValidEmail}" ValidationType="Email" x:Name="emailValidator"/>
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Image HeightRequest="30" WidthRequest="30" Source="{Binding Source={x:Reference emailValidator}, Path=IsValid, Converter={StaticResource cvtBoolToImage}}"/>
                     </StackLayout>
                 </ViewCell>
                 <ViewCell>
                     <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
-                        <Entry Placeholder="Contraseña" IsPassword="True" Text="{Binding Password, Mode=TwoWay}" HorizontalOptions="FillAndExpand"/>
-                        <Image HeightRequest="30" WidthRequest="30"/>
+                        <Entry Placeholder="Contraseña" IsPassword="True" Text="{Binding User.Password, Mode=TwoWay}" HorizontalOptions="FillAndExpand">
+                            <Entry.Behaviors>
+                                <behaviors:EntryValidationBehavior IsValid="{Binding IsValidPassword}" ValidationType="Password" x:Name="passwordValidator"/>
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Image HeightRequest="30" WidthRequest="30" Source="{Binding Source={x:Reference passwordValidator}, Path=IsValid, Converter={StaticResource cvtBoolToImage}}"/>
                     </StackLayout>
                 </ViewCell>
             </TableSection>

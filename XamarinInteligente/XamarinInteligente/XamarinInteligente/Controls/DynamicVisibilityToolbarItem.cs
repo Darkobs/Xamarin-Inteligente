@@ -7,13 +7,19 @@ namespace XamarinInteligente.Controls
 {
     class DynamicVisibilityToolbarItem : ToolbarItem
     {
-        public static BindableProperty IsVisibleProperty = BindableProperty.Create(nameof(IsVisible),typeof(bool),typeof(DynamicVisibilityToolbarItem),true, BindingMode.TwoWay, 
+        public static BindableProperty IsVisibleProperty = BindableProperty.Create(nameof(IsVisible),typeof(bool),typeof(DynamicVisibilityToolbarItem),false, BindingMode.OneWay, 
             HandleValidateValueDelegate, OnIsVisibleChanged);
 
         public bool IsVisible 
         {
             get => (bool)GetValue(IsVisibleProperty);
             set => SetValue(IsVisibleProperty, value); 
+        }
+
+        protected override void OnParentSet()
+        {
+            if (this.Parent != null)
+                OnIsVisibleChanged(this, !IsVisible, IsVisible);
         }
 
         private static void OnIsVisibleChanged(BindableObject bindable, object oldValue, object newValue)

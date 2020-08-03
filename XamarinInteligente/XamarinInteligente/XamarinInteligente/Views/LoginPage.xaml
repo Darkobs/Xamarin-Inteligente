@@ -6,14 +6,20 @@
              mc:Ignorable="d"
              x:Class="XamarinInteligente.Views.LoginPage"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:viewModels="clr-namespace:XamarinInteligente.ViewModels"
              Title="Inicio de sesión"
              IconImageSource="user"
              ios:Page.UseSafeArea="true">
+
+    <ContentPage.BindingContext>
+        <viewModels:LoginViewModel/>
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="20,100,20,0">
             <Label Text="Inicio de Sesión" FontSize="20" TextColor="Gray" HorizontalOptions="CenterAndExpand"/>
-            <Entry Placeholder="Correo electrónico" Keyboard="Email"/>
-            <Entry Placeholder="Contraseña" IsPassword="True"/>
+            <Entry Placeholder="Correo electrónico" Keyboard="Email" Text="{Binding Email}"/>
+            <Entry Placeholder="Contraseña" IsPassword="True" Text="{Binding Password}"/>
             <Button Text="Iniciar Sesión" TextColor="White" 
                     BackgroundColor="#FFA733"
                     CornerRadius="15"
@@ -21,9 +27,9 @@
                     BorderWidth="2"
                     WidthRequest="200"
                     HorizontalOptions="Center"
-                    Clicked="BtnLogin_Clicked"/>
-            <Button Text="Regístrate" TextColor="Gray" BackgroundColor="Transparent" Clicked="BtnSignUp_Clicked"/>
-            <ActivityIndicator HorizontalOptions="Center"/>
+                    Command="{Binding LoginCommand}"/>
+            <Button Text="Regístrate" TextColor="Gray" BackgroundColor="Transparent" Command="{Binding SignUpCommand}"/>
+            <ActivityIndicator HorizontalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

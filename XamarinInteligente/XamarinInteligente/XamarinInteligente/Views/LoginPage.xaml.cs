@@ -17,16 +17,16 @@ namespace XamarinInteligente.Views
             InitializeComponent();
         }
 
-        private void BtnSignUp_Clicked(object sender, EventArgs e)
-        {
-            //var tabbedPage = (App.Current.MainPage as NavigationPage).CurrentPage as TabbedPage;
-            var tabbedPage = App.Current.MainPage as TabbedPage;
-            tabbedPage.SelectedItem = tabbedPage.Children[1];
-        }
+        //private void BtnSignUp_Clicked(object sender, EventArgs e)
+        //{
+        //    //var tabbedPage = (App.Current.MainPage as NavigationPage).CurrentPage as TabbedPage;
+        //    var tabbedPage = App.Current.MainPage as TabbedPage;
+        //    tabbedPage.SelectedItem = tabbedPage.Children[1];
+        //}
 
-        private void BtnLogin_Clicked(object sender, EventArgs e)
-        {
-            App.Current.MainPage = new MainMasterDetailPage();
-        }
+        //private void BtnLogin_Clicked(object sender, EventArgs e)
+        //{
+        //    App.Current.MainPage = new MainMasterDetailPage();
+        //}
     }
 }

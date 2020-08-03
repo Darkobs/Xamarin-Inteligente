@@ -13,6 +13,7 @@ namespace XamarinInteligente.ViewModels
         {
             Title = "Nuevo usuario";
             User = new User();
+            IsBusy = false;
             User = Sampledata.SampleDataGenerator.GenerateUser();
 
             //IsBusy = true;

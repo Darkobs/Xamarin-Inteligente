@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:vm="clr-namespace:XamarinInteligente.ViewModels" xmlns:controls="clr-namespace:XamarinInteligente.Controls" 
-             xmlns:behaviors="clr-namespace:XamarinInteligente.Views.Behaviors" xmlns:Converters="clr-namespace:XamarinInteligente.Views.Converter"
+             xmlns:behaviors="clr-namespace:XamarinInteligente.Behaviors" xmlns:Converters="clr-namespace:XamarinInteligente.Converters"
              mc:Ignorable="d"
              Title="{Binding Title}"
              IconImageSource="signup"
@@ -46,7 +46,8 @@
                                 <behaviors:EntryValidationBehavior IsValid="{Binding IsValidPhoneNumber}" ValidationType="PhoneNumber" x:Name="phoneNumberValidator"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Image HeightRequest="30" WidthRequest="30" Source="{Binding Source={x:Reference phoneNumberValidator}, Path=IsValid, Converter={StaticResource cvtBoolToImage}}"/>
+                        <!-- <Image HeightRequest="30" WidthRequest="30" Source="{Binding Source={x:Reference phoneNumberValidator}, Path=IsValid, Converter={StaticResource cvtBoolToImage}}"/> -->
+                        <Image HeightRequest="30" WidthRequest="30" Source="{Binding IsValid, Source={x:Reference phoneNumberValidator}, Converter={StaticResource cvtBoolToImage}}"/>
                     </StackLayout>
                 </ViewCell>
             </TableSection>
@@ -58,7 +59,8 @@
                                 <behaviors:EntryValidationBehavior IsValid="{Binding IsValidEmail}" ValidationType="Email" x:Name="emailValidator"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Image HeightRequest="30" WidthRequest="30" Source="{Binding Source={x:Reference emailValidator}, Path=IsValid, Converter={StaticResource cvtBoolToImage}}"/>
+                   <!--     <Image HeightRequest="30" WidthRequest="30" Source="{Binding Source={x:Reference emailValidator}, Path=IsValid, Converter={StaticResource cvtBoolToImage}}"/> -->
+                        <Image HeightRequest="30" WidthRequest="30" Source="{Binding IsValidEmail, Converter={StaticResource cvtBoolToImage}}"/>
                     </StackLayout>
                 </ViewCell>
                 <ViewCell>

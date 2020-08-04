@@ -4,7 +4,7 @@ using System.Text;
 using Xamarin.Forms;
 using XamarinInteligente.Model.Helpers;
 
-namespace XamarinInteligente.Views.Behaviors
+namespace XamarinInteligente.Behaviors
 {
     class EntryValidationBehavior : Behavior<Entry>
     {

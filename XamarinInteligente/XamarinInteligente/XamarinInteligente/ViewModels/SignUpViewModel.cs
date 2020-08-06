@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using XamarinInteligente.Model.BaseTypes;
 using XamarinInteligente.Model.Entities;
+using XamarinInteligente.Services.Interfaces;
+using XamarinInteligente.Services.Rest;
 
 namespace XamarinInteligente.ViewModels
 {
@@ -92,21 +94,47 @@ namespace XamarinInteligente.ViewModels
 
         private async Task CreateUser()
         {
-            if(!IsBusy)
+            if (Xamarin.Essentials.Connectivity.NetworkAccess == Xamarin.Essentials.NetworkAccess.Internet)
             {
-                IsBusy = true;
-
-                if(IsValid && !string.IsNullOrWhiteSpace(User.Name) && !string.IsNullOrWhiteSpace(User.Address))
+                if (!IsBusy)
                 {
-                    await Task.Delay(5000);
-                    await Application.Current.MainPage.DisplayAlert("Nuevo usuario creado", "El usuario se creaó correctamente", "Continuar");
-                    CleanData();
-                    var tabbedPage = (Application.Current.MainPage as NavigationPage).CurrentPage as TabbedPage;
-                    tabbedPage.SelectedItem = tabbedPage.Children[0];
-                }
+                    IsBusy = true;
+                    IAccountService accountService = new AccountService();
 
-                IsBusy = false;
+                    bool result = await accountService.CreateUser(user.Email, user.Address, user.Password, user.Name, user.PhoneNumber);
+
+                    string message = result ? "El usuario se creó correctamente" : "Hubo un error";
+
+                    Application.Current.MainPage.DisplayAlert("Creación de usuario", message, "Aceptar");
+
+                    if (result)
+                    {
+                        CleanData();
+                        var tabbedPage = (Application.Current.MainPage as NavigationPage).CurrentPage as TabbedPage;
+                        tabbedPage.SelectedItem = tabbedPage.Children[0];
+                    }
+
+                    IsBusy = false;
+                }
             }
+            else
+                await Application.Current.MainPage.DisplayAlert("Creación de usuario", "Se requiere Internet para continuar", "Aceptar");
+
+            //if(!IsBusy)
+            //{
+            //    IsBusy = true;
+
+            //    if(IsValid && !string.IsNullOrWhiteSpace(User.Name) && !string.IsNullOrWhiteSpace(User.Address))
+            //    {
+            //        await Task.Delay(5000);
+            //        await Application.Current.MainPage.DisplayAlert("Nuevo usuario creado", "El usuario se creaó correctamente", "Continuar");
+            //        CleanData();
+            //        var tabbedPage = (Application.Current.MainPage as NavigationPage).CurrentPage as TabbedPage;
+            //        tabbedPage.SelectedItem = tabbedPage.Children[0];
+            //    }
+
+            //    IsBusy = false;
+            //}
         }
 
         public Command CreateUserCommand
@@ -114,6 +142,8 @@ namespace XamarinInteligente.ViewModels
             get;
             set;
         }
+
+        //public Command CreateUserCommand => new Command(async () => await CreateUser());
 
         void InitVM()
         {

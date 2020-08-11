@@ -20,6 +20,10 @@
             <Label Text="Inicio de Sesión" FontSize="20" TextColor="Gray" HorizontalOptions="CenterAndExpand"/>
             <Entry Placeholder="Correo electrónico" Keyboard="Email" Text="{Binding Email}"/>
             <Entry Placeholder="Contraseña" IsPassword="True" Text="{Binding Password}"/>
+            <StackLayout Orientation="Horizontal">
+                <Switch IsToggled="{Binding KeepLogin}" />
+                <Label Text="Mantener sesión iniciada" />
+            </StackLayout>
             <Button Text="Iniciar Sesión" TextColor="White" 
                     BackgroundColor="#FFA733"
                     CornerRadius="15"

@@ -8,6 +8,8 @@ namespace XamarinInteligente.Services
     class BaseApiServices
     {
         protected static HttpClient httpClient;
+        protected static string accessToken;
+        protected static string accessTokenType;
 
         public BaseApiServices()
         {

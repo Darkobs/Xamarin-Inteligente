@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using XamarinInteligente.Model.BaseTypes;
+using XamarinInteligente.Model.Entities;
 using XamarinInteligente.Views;
 
 namespace XamarinInteligente.ViewModels
@@ -43,6 +44,13 @@ namespace XamarinInteligente.ViewModels
             set;
         }
 
+        private bool keepLogin;
+        public bool KeepLogin
+        {
+            get { return keepLogin; }
+            set => SetProperty(ref keepLogin, value);
+        }
+
         private void InitVM()
         {
             LoginCommand = new Command(async () => await Login());
@@ -67,6 +75,10 @@ namespace XamarinInteligente.ViewModels
                 CleanData();
                 IsBusy = false;
             }
+
+            User user = new User(); 
+            user.Email = Email; 
+            user.Password = password;
         }
 
         private async Task SignUp()

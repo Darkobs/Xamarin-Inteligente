@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using XamarinInteligente.Model.BaseTypes;
+using XamarinInteligente.Services.Interfaces;
 
 namespace XamarinInteligente.Model.Entities
 {
@@ -11,10 +13,11 @@ namespace XamarinInteligente.Model.Entities
         UserPasswordError,
         Blocked,
         Logout,
-        Error
+        Error,
+        LastLoginBeforeBlock
     }
 
-    class User : ObservableObject
+    public class User : ObservableObject
     {
         private string name;
 
@@ -61,9 +64,21 @@ namespace XamarinInteligente.Model.Entities
             set => SetProperty(ref password, value);
         }
 
-        public LoginStatus Login()
+        private IUserService userService = new Services.WebApiServices.UserService();
+
+        public async Task<LoginStatus> Login(bool keepLogin)
         {
-            return LoginStatus.Ok;
+            var loginStatus = await userService.Login(this);
+            if(loginStatus == LoginStatus.Ok)
+            {
+                var userInfo = await userService.GetUserInfo(this);
+                Address = userInfo?.Address;
+                Name = userInfo?.Name;
+                Email = userInfo?.Email;
+                password = string.Empty;
+                loginStatus = userInfo == null ? LoginStatus.Error : loginStatus;
+            }
+            return loginStatus;
         }
 
         public LoginStatus Logout()

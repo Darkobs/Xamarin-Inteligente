@@ -5,7 +5,7 @@ using XamarinInteligente.Model.BaseTypes;
 
 namespace XamarinInteligente.Model.Entities
 {
-    class ProductOrder : ObservableObject
+    public class ProductOrder : ObservableObject
     {
         private double price;
 

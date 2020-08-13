@@ -3,37 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:XamarinInteligente.ViewModels"
              mc:Ignorable="d"
              x:Class="XamarinInteligente.Views.OrderPage">
-    <ContentPage.Content>
-        <Grid RowDefinitions="40,15,1*,40,15,2*,40,10"
-              ColumnDefinitions="10,Auto,90,130,10">
-            
-            <SearchBar Grid.ColumnSpan="5" Placeholder="Buscar producto" />
-            <Label Grid.Column="1" Grid.Row="1" Text="Productos" />
-            <ListView Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ImageCell />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Entry Grid.Column="1" Grid.Row="3" WidthRequest="60" IsEnabled="False" />
-            <Stepper Grid.Column="2" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="End" />
-            <Button Grid.Column="3" Grid.Row="3" TextColor="White" BackgroundColor="#FFA733" CornerRadius="15" Text="Agregar" />
-            <Label Grid.Column="1" Grid.Row="4" Text="Pedido" />
-            <ListView Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="5">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ImageCell>
-                            <ImageCell.ContextActions>
-                                <MenuItem Text="Eliminar"/>
-                            </ImageCell.ContextActions>
-                        </ImageCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button Grid.Column="3" Grid.Row="6" TextColor="White" BackgroundColor="#FFA733" BorderRadius="15" Text="Finalizar Pedido" />
-        </Grid>
-    </ContentPage.Content>
+    
+    <ContentPage.BindingContext>
+        <vm:OrderViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="30,30,40,1.5*,40,15,2*,40,10"
+              ColumnDefinitions="10,auto,160,90,10">
+
+        <SearchBar Grid.ColumnSpan="5" Placeholder="Buscar producto" Text="{Binding SearchText}" SearchCommand="{Binding LookForProductsCommand}" />
+        <Label Grid.Column="1" Grid.Row="1" Text="Cliente" />
+        <Entry Grid.Row="1" Grid.Column="2" Text="{Binding ClientId}" />
+        <Label Grid.Column="1" Grid.Row="2" Text="Productos" />
+        <ListView Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" ItemsSource="{Binding ProductsResults}" SelectedItem="{Binding SelectedProduct}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Text="{Binding Name}" Detail="{Binding Price,StringFormat='Precio = {0:C}'}" ImageSource="{Binding PhotoUrl}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Entry Grid.Column="1" Grid.Row="4" WidthRequest="60" IsEnabled="false" Text="{Binding Quantity}" />
+        <Stepper Grid.Column="2" Grid.Row="4" VerticalOptions="Center" HorizontalOptions="Start" Value="{Binding Quantity}" />
+        <Button Grid.Column="3" Grid.Row="4" TextColor="White" BackgroundColor="#FFA733" CornerRadius="15" Text="Agregar" Command="{Binding AddProductToOrderCommand}" />
+        <Label Grid.Column="1" Grid.Row="5" Text="Pedido" />
+        <ListView Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" ItemsSource="{Binding ProductsInOrder}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell
+                        Text="{Binding Product.Name}"
+                        Detail="{Binding Total, StringFormat='Total = {0:C}'}"
+                        ImageSource="{Binding  Product.PhotoUrl}">
+                        <ImageCell.ContextActions>
+                            <MenuItem Text="Eliminar" />
+                        </ImageCell.ContextActions>
+                    </ImageCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Grid.Column="3" Grid.Row="7" TextColor="White" BackgroundColor="#FFA733" CornerRadius="15" Text="Finalizar Pedido" Command="{Binding FinishOrderCommand}" />
+    </Grid>
 </ContentPage>

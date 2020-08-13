@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XamarinInteligente.Services
 {
-    class BaseApiServices
+    public class BaseApiServices
     {
         protected static HttpClient httpClient;
         protected static string accessToken;

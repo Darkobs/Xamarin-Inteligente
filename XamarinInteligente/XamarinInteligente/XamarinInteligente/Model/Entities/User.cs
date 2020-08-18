@@ -60,25 +60,39 @@ namespace XamarinInteligente.Model.Entities
         public string Password
         {
             get => password;
-
             set => SetProperty(ref password, value);
         }
 
         private IUserService userService = new Services.WebApiServices.UserService();
 
-        public async Task<LoginStatus> Login(bool keepLogin)
+        public async Task<Tuple<LoginStatus, string>> Login(bool keepLogin)
         {
             var loginStatus = await userService.Login(this);
-            if(loginStatus == LoginStatus.Ok)
+            Tuple<LoginStatus, string> result = loginStatus;
+            if (loginStatus.Item1 == LoginStatus.Ok)
             {
                 var userInfo = await userService.GetUserInfo(this);
                 Address = userInfo?.Address;
                 Name = userInfo?.Name;
                 Email = userInfo?.Email;
                 password = string.Empty;
-                loginStatus = userInfo == null ? LoginStatus.Error : loginStatus;
+                var userInfoLoginStatus = userInfo == null ? LoginStatus.Error : loginStatus.Item1;
+                result = new Tuple<LoginStatus, string>(userInfoLoginStatus, loginStatus.Item2);
+
+                if(keepLogin)
+                {
+                    var tokenInfo = loginStatus.Item2.Split('|');
+                    App.Current.Properties["AccessTokenType"] = tokenInfo[0];
+                    App.Current.Properties["AccessToken"] = tokenInfo[0];
+                    await App.Current.SavePropertiesAsync();
+                }
+                else
+                {
+                    App.Current.Properties["KeepLogin"] = false;
+                    await App.Current.SavePropertiesAsync();
+                }
             }
-            return loginStatus;
+            return result;
         }
 
         public LoginStatus Logout()

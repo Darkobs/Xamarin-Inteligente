@@ -8,7 +8,7 @@ namespace XamarinInteligente.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<LoginStatus> Login(User user);
+        Task<Tuple<LoginStatus, string>> Login(User user);
         Task<bool> Logout(User user);
         Task<User> GetUserInfo(User User);
     }

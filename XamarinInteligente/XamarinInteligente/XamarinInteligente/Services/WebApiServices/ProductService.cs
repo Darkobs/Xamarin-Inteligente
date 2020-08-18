@@ -114,7 +114,6 @@ namespace XamarinInteligente.Services.WebApiServices
             return result;
         }
 
-
         public async Task<ObservableCollection<Product>> LookForProducts(string query)
         {
             ObservableCollection<Product> result = null;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using XamarinInteligente.Model.BaseTypes;
 using XamarinInteligente.Model.Entities;
+using XamarinInteligente.Services.WebApiServices.ResponseClasses;
 using XamarinInteligente.Views;
 
 namespace XamarinInteligente.ViewModels
@@ -63,22 +64,30 @@ namespace XamarinInteligente.ViewModels
             {
                 IsBusy = true;
 
-                if(!string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password))
+                User user = new User();
+                user.Email = Email;
+                user.Password = password;
+
+                var loginResult = await user.Login(keepLogin);
+
+                if(loginResult.Item1 == LoginStatus.Ok)
                 {
-                    await Task.Delay(5000);
                     Application.Current.MainPage = new MainMasterDetailPage();
+                    CleanData();
                 }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Por favor revisa los datos introducidos", "Aceptar");
-                }
-                CleanData();
+
+                //if (!string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password))
+                //{
+                //    await Task.Delay(5000);
+                //    Application.Current.MainPage = new MainMasterDetailPage();
+                //}
+                //else
+                //{
+                //    await Application.Current.MainPage.DisplayAlert("Error", "Por favor revisa los datos introducidos", "Aceptar");
+                //}
+                //CleanData();
                 IsBusy = false;
             }
-
-            User user = new User(); 
-            user.Email = Email; 
-            user.Password = password;
         }
 
         private async Task SignUp()

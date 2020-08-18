@@ -16,7 +16,7 @@ namespace XamarinInteligente.Services.WebApiServices
 
         }
 
-        public async Task<LoginStatus> Login(User user)
+        public async Task<Tuple<LoginStatus, string>> Login(User user)
         {
             LoginStatus result = LoginStatus.Error;
             Dictionary<string, string> requestContent = new Dictionary<string, string>();
@@ -61,7 +61,7 @@ namespace XamarinInteligente.Services.WebApiServices
                 }
             }
 
-            return result;
+            return new Tuple<LoginStatus, string>(result, $"{accessTokenType}|{accessToken}");
         }
         public async Task<User> GetUserInfo(User user)
         {

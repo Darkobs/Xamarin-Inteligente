@@ -23,7 +23,8 @@ namespace XamarinInteligente.Services.WebApiServices
             ObservableCollection<Product> result = null;
 
             //Obtenemos el catalogo almacenado
-            result = null;
+            result = new ObservableCollection<Product>(
+                await Storage.SQLiteAsyncManager.Instance.GetAllItems<Product>());
 
             //De inicio definimos una fecha al azar que podría considerarse obsoleta
             var currentLocalVersion = DateTime.Now.ToUniversalTime() - TimeSpan.FromDays(15);
@@ -35,31 +36,34 @@ namespace XamarinInteligente.Services.WebApiServices
             //Obtenemos el valor de la versión que está en la API
             var currentOnlineVersion = await GetProductCatalogVersion();
 
-
-            string uri = $"{Model.Constants.ServiceConstants.API}api/products";
-
-            InitHttpClient();
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri))
+            if(currentLocalVersion < currentOnlineVersion | !result.Any())
             {
-                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(accessTokenType, accessToken);
-                using (HttpResponseMessage response = await httpClient.SendAsync(request))//.SendAsync(request))
+                string uri = $"{Model.Constants.ServiceConstants.API}api/products";
+
+                InitHttpClient();
+                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri))
                 {
-                    using (HttpContent content = response.Content)
+                    request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(accessTokenType, accessToken);
+                    using (HttpResponseMessage response = await httpClient.SendAsync(request))//.SendAsync(request))
                     {
-                        if (response.IsSuccessStatusCode)
+                        using (HttpContent content = response.Content)
                         {
-                            string responseStringContent = await content.ReadAsStringAsync();
-                            result = Newtonsoft.Json.JsonConvert.DeserializeObject<ObservableCollection<Product>>(responseStringContent);
+                            if (response.IsSuccessStatusCode)
+                            {
+                                string responseStringContent = await content.ReadAsStringAsync();
+                                result = Newtonsoft.Json.JsonConvert.DeserializeObject<ObservableCollection<Product>>(responseStringContent);
 
-                            //Si logramos obtener los datos, los almacenamos en SQLite
-                            Application.Current.Properties["SavedCatalogVersion"] = currentOnlineVersion;
+                                //Si logramos obtener los datos, los almacenamos en SQLite
+                                Application.Current.Properties["SavedCatalogVersion"] = currentOnlineVersion;
+                                await Storage.SQLiteAsyncManager.Instance.SaveCatalog(result);
 
-                            //Finalmente aplicamos los cambios
-                            await Application.Current.SavePropertiesAsync();
+                                //Finalmente aplicamos los cambios
+                                await Application.Current.SavePropertiesAsync();
+                            }
                         }
                     }
-                }
 
+                }
             }
 
             return result;

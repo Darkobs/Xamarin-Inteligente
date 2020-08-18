@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace XamarinInteligente.Views
@@ -15,6 +16,7 @@ namespace XamarinInteligente.Views
         public NextClientPage()
         {
             InitializeComponent();
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(19.4485455, -99.1724404), Distance.FromKilometers(10)));
         }
     }
 }

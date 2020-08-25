@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:XamarinInteligente.ViewModels" 
-             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps" xmlns:controls="clr-namespace:XamarinInteligente.Controls"
              mc:Ignorable="d"
              Title="{Binding Title}"
              x:Class="XamarinInteligente.Views.NextClientPage">
@@ -14,19 +14,21 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="10,20,20,10" BindingContext="{Binding Client}" >
+        <!--<StackLayout Orientation="Vertical" Padding="10,20,20,10" BindingContext="{Binding Client}" >-->
+        <StackLayout Orientation="Vertical" Padding="10,20,20,10">
             <Label Text="{Binding Name, Mode=TwoWay}" />
             <Label Text="{Binding PhoneNumber, Mode=TwoWay}"  />
             <Label Text="{Binding Address, Mode=TwoWay}"  />
             <Label Text="{Binding Email, Mode=TwoWay}" />
-            <maps:Map x:Name="map" Margin="10,0" />
+            <controls:RouteMap x:Name="map" Margin="10,0" Route="{Binding Route}"/>
             <Button Text="Ruta" TextColor="White" 
                     BackgroundColor="#FFA733"
                     BorderRadius="15"
                     BorderColor="White"
                     BorderWidth="2"
                     WidthRequest="200"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center"
+                    Command="{Binding ShowRouteCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

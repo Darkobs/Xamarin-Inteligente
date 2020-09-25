@@ -11,6 +11,12 @@ namespace XamarinInteligente.Services.WebApiServices
 {
     class UserService : BaseApiServices, IUserService
     {
+        public UserService(string accessToken, string accessTokenType)
+            : base(accessToken, accessTokenType)
+        {
+
+        }
+
         public UserService()
         {
 
@@ -63,11 +69,10 @@ namespace XamarinInteligente.Services.WebApiServices
 
             return new Tuple<LoginStatus, string>(result, $"{accessTokenType}|{accessToken}");
         }
-        public async Task<User> GetUserInfo(User user)
+        public async Task<User> GetUserInfo()
         {
             User result = null;
             string uri = $"{Model.Constants.ServiceConstants.API}api/Account/UserInfo";
-            ResponseClasses.TokenResponse tokenResponse;
 
             InitHttpClient();
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri))
@@ -86,7 +91,7 @@ namespace XamarinInteligente.Services.WebApiServices
                             {
                                 Address = userInfo.Address,
                                 Name = userInfo.Name,
-                                Email = user.Email
+                                Email = userInfo.Email
                             };
                         }
                     }
@@ -99,9 +104,30 @@ namespace XamarinInteligente.Services.WebApiServices
         public async Task<bool> Logout(User user)
         {
             bool result = false;
-            accessToken = string.Empty;
-            accessTokenType = string.Empty;
-            result = true;
+            if (!string.IsNullOrWhiteSpace(accessToken))
+            {
+                string uri = $"{Model.Constants.ServiceConstants.API}api/Account/Logout";
+
+                InitHttpClient();
+                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, uri))
+                {
+                    request.Headers.Add("Authorization", $"{accessTokenType} {accessToken}");
+
+                    using (HttpResponseMessage response = await httpClient.SendAsync(request))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            accessToken = string.Empty;
+                            accessTokenType = string.Empty;
+                            result = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                result = true;
+            }
             return result;
         }
     }

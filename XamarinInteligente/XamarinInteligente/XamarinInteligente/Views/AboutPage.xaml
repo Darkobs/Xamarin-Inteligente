@@ -2,15 +2,25 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="clr-namespace:XamarinInteligente.Controls"
              mc:Ignorable="d"
              x:Class="XamarinInteligente.Views.AboutPage">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+       <!-- <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
             <Label Text="MiApp" FontSize="Title" FontAttributes="Bold" />
             <Label Text="Desarrollada por Carlos Murillo" />
             <Label Text="Versión 1.0" />
             <Label Text="carlos.murillo@exatec.tec.mx" />
-        </StackLayout>
+        </StackLayout> -->
+        <Grid>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0">
+                <Label Text="MiApp" FontSize="Title" FontAttributes="Bold" />
+                <Label Text="Desarrollada por Carlos Murillo" />
+                <Label Text="Versión 1.0" />
+                <Label Text="carlos.murillo@exatec.tec.mx" />
+            </StackLayout>
+            <controls:AdView Grid.Row="1"/>
+        </Grid>
+       
     </ContentPage.Content>
 </ContentPage>

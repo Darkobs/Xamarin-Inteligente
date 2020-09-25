@@ -71,7 +71,7 @@ namespace XamarinInteligente.Model.Entities
             Tuple<LoginStatus, string> result = loginStatus;
             if (loginStatus.Item1 == LoginStatus.Ok)
             {
-                var userInfo = await userService.GetUserInfo(this);
+                var userInfo = await userService.GetUserInfo();
                 Address = userInfo?.Address;
                 Name = userInfo?.Name;
                 Email = userInfo?.Email;
@@ -83,11 +83,13 @@ namespace XamarinInteligente.Model.Entities
                 {
                     var tokenInfo = loginStatus.Item2.Split('|');
                     App.Current.Properties["AccessTokenType"] = tokenInfo[0];
-                    App.Current.Properties["AccessToken"] = tokenInfo[0];
+                    App.Current.Properties["AccessToken"] = tokenInfo[1];
+                    App.Current.Properties["KeepLogin"] = true;
                     await App.Current.SavePropertiesAsync();
                 }
                 else
                 {
+                    App.Current.Properties.Clear();
                     App.Current.Properties["KeepLogin"] = false;
                     await App.Current.SavePropertiesAsync();
                 }

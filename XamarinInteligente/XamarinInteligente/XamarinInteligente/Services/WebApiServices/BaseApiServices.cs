@@ -11,6 +11,12 @@ namespace XamarinInteligente.Services
         protected static string accessToken { get; set; }
         protected static string accessTokenType { get; set; }
 
+        public BaseApiServices(string accessToken, string accessTokenType)
+        {
+            BaseApiServices.accessToken = accessToken;
+            BaseApiServices.accessTokenType = accessTokenType;
+        }
+
         public BaseApiServices()
         {
 

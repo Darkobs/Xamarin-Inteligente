@@ -62,9 +62,13 @@
     <PackageReference Include="Xamarin.Forms.Maps">
       <Version>4.8.0.1269</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.GooglePlayServices.Ads">
+      <Version>71.1720.4</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderer\AdViewRenderer.cs" />
     <Compile Include="Renderer\RouteMapRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

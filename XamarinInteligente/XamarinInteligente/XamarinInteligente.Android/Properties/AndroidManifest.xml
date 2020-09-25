@@ -5,6 +5,10 @@
     <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDE1xM4o4G6mF7ODW7zp4JSogk6LaCNcvg" />
     <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
     <uses-library android:name="org.apache.http.legacy" android:required="false" />   
+      <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
   </application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

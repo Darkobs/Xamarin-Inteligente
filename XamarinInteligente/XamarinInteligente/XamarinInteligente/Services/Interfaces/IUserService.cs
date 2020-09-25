@@ -10,6 +10,6 @@ namespace XamarinInteligente.Services.Interfaces
     {
         Task<Tuple<LoginStatus, string>> Login(User user);
         Task<bool> Logout(User user);
-        Task<User> GetUserInfo(User User);
+        Task<User> GetUserInfo();
     }
 }

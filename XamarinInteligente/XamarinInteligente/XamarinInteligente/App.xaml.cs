@@ -13,19 +13,21 @@ namespace XamarinInteligente
         {
             InitializeComponent();
 
-            Xamarin.Forms.TabbedPage tabbedPage = new Xamarin.Forms.TabbedPage();
-            tabbedPage.Children.Add(new LoginPage());
-            tabbedPage.Children.Add(new SignUpPage());
+            MainPage = new SplashScreenPage();
 
-            // Muestra los tabs en la parte inferior
-            tabbedPage.On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
-            //MainPage = tabbedPage;
-            //MainPage = new NavigationPage(new NextClientPage());
+            //Xamarin.Forms.TabbedPage tabbedPage = new Xamarin.Forms.TabbedPage();
+            //tabbedPage.Children.Add(new LoginPage());
+            //tabbedPage.Children.Add(new SignUpPage());
 
-            //MainPage = new MainMasterDetailPage();
+            //// Muestra los tabs en la parte inferior
+            //tabbedPage.On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
+            ////MainPage = tabbedPage;
+            ////MainPage = new NavigationPage(new NextClientPage());
+
+            ////MainPage = new MainMasterDetailPage();
             
-            //Asignamos la página de pestañas como inicial, la envolvemos en un NavigationPage para tener a la vista la barra de navegación
-            MainPage = new NavigationPage(tabbedPage);
+            ////Asignamos la página de pestañas como inicial, la envolvemos en un NavigationPage para tener a la vista la barra de navegación
+            //MainPage = new NavigationPage(tabbedPage);
         }
 
         protected override void OnStart()

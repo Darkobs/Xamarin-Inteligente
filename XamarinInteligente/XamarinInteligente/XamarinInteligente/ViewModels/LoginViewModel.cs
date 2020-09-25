@@ -18,8 +18,8 @@ namespace XamarinInteligente.ViewModels
             InitVM();
             CleanData();
 
-            Email = "carlos@mail.com";
-            Password = "aA12345678@";
+            //Email = "carlos@mail.com";
+            //Password = "aA12345678@";
         }
 
         private string email;
